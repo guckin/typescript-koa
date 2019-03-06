@@ -1,0 +1,4 @@
+--require source-map-support/register
+--colors
+--reporter mocha-jenkins-reporter
+--full-trace
