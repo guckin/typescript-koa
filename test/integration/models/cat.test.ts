@@ -6,9 +6,4 @@ describe('Cat model', () => {
     const cat =  new Cat();
     expect(cat).to.not.equals(null);
   });
-
-  it('generates id auth on create', () => {
-    const cat = new Cat();
-    expect(cat).to.have.property('id')
-  });
 });
