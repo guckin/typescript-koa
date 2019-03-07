@@ -4,7 +4,7 @@ import { DynamoDB } from 'aws-sdk';
 import { Cat } from '../models/cat.model';
 import DynamoDBFactory from '../dynamo-db-factory';
 import { CatStore } from '../types/catstore.types';
-import { log } from '@dat/node-util';
+import * as log from '../logger';
 
 export class CatStoreService implements CatStore {
     private readonly dataMapper: DataMapper;
