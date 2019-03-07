@@ -26,11 +26,18 @@ export default {
         audience: process.env.OAUTH2_AUDIENCE || 'https://test-api.dat.com',
         issuer: process.env.OAUTH2_ISSUER || 'https://login.test.dat.com/'
     },
-    aws: {
-        dynamoDb: {
-            region: process.env.DYNAMODB_REGION || 'us-west-2',
-            tablePrefix: process.env.DYNAMODB_ENV_PREFIX || '',
+    dynamoDb: { 
+        tablePrefix: process.env.DYNAMODB_ENV_PREFIX || '',
+        localParameters: {
+            region: 'localhost',
+            endpoint: 'http://localhost:8000',
+            accessKeyId: 'foo',
+            sessionToken: 'bar',
+            secretAccessKey: 'foobar'
         },
-        isLocal: true
+        cloudParameters: {
+            region: process.env.DYNAMODB_REGION || 'us-west-2'
+        }
     },
+    localDev: process.env.LOCAL_DEV || true
 };

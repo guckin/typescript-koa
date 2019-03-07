@@ -7,14 +7,26 @@ import * as bodyParser from 'koa-bodyparser';
 import config from './config';
 
 import * as log from './logger';
+import { DataMapper } from '@aws/dynamodb-data-mapper';
+import { DynamoDB } from 'aws-sdk';
 import { CatStore } from './types/CatStore.types';
 import { CatStoreService } from './services/catstore.service';
 
 import * as catRouting from './routes/cat';
 import * as docRouting from './routes/docs'
 
+
 const app = new Koa();
-const CatDataStore: CatStore = new CatStoreService();
+const db = new DynamoDB(
+    config.localDev 
+    ? config.dynamoDb.localParameters
+    : config.dynamoDb.cloudParameters
+)
+const mapper: DataMapper = new DataMapper( {
+    client: db,
+    tableNamePrefix: config.dynamoDb.tablePrefix
+});
+const CatDataStore: CatStore = new CatStoreService(mapper);
 
 app.use(bodyParser());
 app.context.catDataStore = CatDataStore;
