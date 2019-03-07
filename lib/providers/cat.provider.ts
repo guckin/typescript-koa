@@ -1,5 +1,5 @@
 import * as Koa from 'koa';
-import { log } from '@dat/node-util';
+import * as log from '../logger';
 import * as joi from 'joi';
 import { CatStoreService } from '../services/catstore.service';
 import { CatStore } from '../types/catstore.types';
