@@ -1,17 +1,16 @@
-export default class {
-  public async info(...msgs: string[]) {
-    await this.sendMsg('I', ...msgs);    
-  }
+export async function info(...msgs: string[]): Promise<void> {
+  await sendMsg('I', ...msgs);    
+}
 
-  public async error(...msgs: string[]): Promise<void> {
-    await this.sendMsg('E', ...msgs);
-  }
+export async function error(...msgs: string[]): Promise<void> {
+  await sendMsg('E', ...msgs);
+}
 
-  public async warning(...msgs: string[]): Promise<void> {
-    await this.sendMsg('W', ...msgs);
-  }
+export async function warning(...msgs: string[]): Promise<void> {
+  await sendMsg('W', ...msgs);
+}
 
-  private async sendMsg(type: string, ...msgs: string[]): Promise<void> {
-    await console.log(`[${type}] ${new Date}`, ...msgs);
-  }
+
+async function sendMsg(type: string, ...msgs: string[]): Promise<void> {
+  await console.log(`[${type}] ${new Date}`, ...msgs);
 }
