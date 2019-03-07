@@ -55,5 +55,12 @@ describe('cat.provider', async () => {
       expect(ctx.body).to.equal(cat)
       expect(ctx.status).to.equal(200)
     });
+
+    it('500 when a failure occurs', async () => {
+      dataStore['retrieveCat'] = () => {throw 42}
+      await postCat(ctx);
+      expect(ctx.body).to.have.property('error');
+      expect(ctx.status).to.equal(500);
+    });
   });
 });
