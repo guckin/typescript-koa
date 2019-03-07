@@ -7,7 +7,7 @@ const swaggerFilePath = path.join(__dirname, '..', '..', '..', 'docs', 'swagger.
 const swaggerFile = require(swaggerFilePath);
 swaggerFile.info.version = config.version;
 
-export = (router: Router) => {
+export function attachTo(router: Router) {
     router
         .all('/', (ctx: Koa.Context) => {
             ctx.body = swaggerFile;
