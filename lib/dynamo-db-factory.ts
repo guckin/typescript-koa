@@ -17,7 +17,6 @@ export default class DynamoDBFactory {
   };
 
   static getInstance(): AWS.DynamoDB {
-    console.log(config.aws.isLocal);
     return config.aws.isLocal
     ? new AWS.DynamoDB( this.localOptions )
     : new AWS.DynamoDB( this.cloudOptions );
