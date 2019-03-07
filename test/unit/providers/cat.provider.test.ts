@@ -9,6 +9,7 @@ describe('cat.provider', async () => {
   let ctx: any;
 
   beforeEach(() => {
+    // TODO: Posibily use a stub class
     dataStore = {};
     
     ctx =  {
