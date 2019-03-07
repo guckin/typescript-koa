@@ -1,13 +1,8 @@
-import * as Koa from 'koa';
 import { postCat, getCat } from '../../providers/cat.provider';
+import * as Router from 'koa-router'
 
-export = {
-    '/': {
-      POST: [
-        postCat
-      ],
-      GET: [
-        getCat
-      ]
-    }
+export = (router: Router) => {
+  return router
+    .get('/cats', getCat)
+    .post('/cats', postCat)
 };
