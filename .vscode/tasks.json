@@ -10,6 +10,12 @@
        "isBuildCommand": true,
        "problemMatcher": "$tsc-watch",
        "showOutput": "always"
+     },
+     {
+       "taskName": "tsc",
+       "command": "tsc",
+       "isShellCommand": true,
+       "showOutput": "always"
      }
    ]
  }
