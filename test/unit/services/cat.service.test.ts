@@ -1,63 +1,34 @@
-import { postCat, getCat } from '../../../lib/providers/cat.provider'
+import { CatStoreService } from '../../../lib/services/catstore.service'
+import { DataMapper } from '@aws/dynamodb-data-mapper';
+import { createMockInstance } from '../../testObjects'
 import { expect } from 'chai'
 
 const sinon = require('sinon');
 
 describe('cat.service', async () => {
 
-  let dataStore: any;
-  let ctx: any;
+  let service: CatStoreService;
+  let mockMapper: DataMapper;
+  let overrides: any;
 
   beforeEach(() => {
-    // TODO: Posibily use a stub class
-    dataStore = {};
-    
-    const createCatMapper =  {
-      put: sinon.stub(),
-      get: sinon.stub(),
-      
-    };
+    // Not sure how to remove coupleing
+    overrides = {
+      put: 42,
+      get: 42 
+    }
+    mockMapper = createMockInstance(DataMapper, overrides);
+    service = new CatStoreService(mockMapper);
   });
 
 
   describe('createCat', async () => {
-    it('400 when name is not provided in request body', async () => {
-      ctx.request.body = {};
-      await postCat(ctx);
-      expect(ctx.body).to.have.property('error');
-      expect(ctx.status).to.equal(400);
-    });
-
-    it('creates a cat', async () => {
-      const cat = 'my cat';
-      dataStore['createCat'] = sinon.fake.returns(cat);
-      await postCat(ctx);
-      expect(ctx.body).to.equal(cat);
-      expect(ctx.status).to.equal(201);
-    });
-
-    it('500 when a failure occurs', async () => {
-      dataStore['createCat'] = () => {throw 42}
-      await postCat(ctx);
-      expect(ctx.body).to.have.property('error');
-      expect(ctx.status).to.equal(500);
+    it('returns a cat on completion', async () =>{
+      var test = await service.createCat('test', 'test');
+      expect(test).to.be.equal(overrides.put);
     });
   });
 
-  describe('getCat', async () => {
-    it('gets a cat', async () => {
-      const cat = 'my cat'
-      dataStore['retrieveCat'] = sinon.fake.returns(cat);
-      await getCat(ctx);
-      expect(ctx.body).to.equal(cat)
-      expect(ctx.status).to.equal(200)
-    });
-
-    it('500 when a failure occurs', async () => {
-      dataStore['retrieveCat'] = () => {throw 42}
-      await postCat(ctx);
-      expect(ctx.body).to.have.property('error');
-      expect(ctx.status).to.equal(500);
-    });
+  describe('retrieveCat', async () => {
   });
 });
